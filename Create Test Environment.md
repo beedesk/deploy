@@ -7,7 +7,7 @@ On MacOS X
     4. `vi VagrantFile` 
     5. Pick an IP address for Vagrant (such as 10.88.0.8)
     6. change line `config.vm.network "private_network", ip: "<< ip address >>"`
-    7. vagrant up
+    7. `vagrant up`
   
 2. Install Docker and Dokku 
     1. `vagrant ssh`
