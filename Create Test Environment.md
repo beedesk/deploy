@@ -25,3 +25,6 @@ On MacOS X
     2. `git push dokku dev master`
     3. For each config:
         * `dokku config:set << app name >> ... `
+    4. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
+        * And, edit `~dokku/<< app name >>ENV` directly
+        * ** remember to include `export` in front of each lines
