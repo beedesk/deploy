@@ -28,3 +28,4 @@ On MacOS X
     4. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
         * And, edit `~dokku/<< app name >>ENV` directly
         * ** remember to include `export` in front of each lines
+        * `dokku config:set << app name >> a=b`  # to cause config reload 
