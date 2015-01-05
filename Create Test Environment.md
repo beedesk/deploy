@@ -15,8 +15,9 @@ On MacOS X
     3. `apt-get install docker`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
-    5. Edit /etc/hosts to add line:
+    5. Exit vagrant ssh shell
+    6. Edit `/etc/hosts` to add line:
         * << ip address >>   dokku.me
-    6. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
+    7. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
 
 3. Create a project and push
