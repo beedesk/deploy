@@ -21,3 +21,7 @@ On MacOS X
     7. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
 
 3. Create a project and push
+    1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
+    2. `git push dokku dev master`
+    3. For each config:
+        * `dokku config:set << app name >> ... `
