@@ -19,6 +19,7 @@ On MacOS X
     6. `sudo apt-get install g++` (nginx failed to built on pcre error.)
     7. `sudo apt-get install build-essential`
     8. `sudo apt-get install libtool`
+    9. Increase swap space: http://stackoverflow.com/a/22247782/1022903
 
 3. Config host machine
     7. Exit vagrant ssh shell
