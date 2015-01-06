@@ -9,6 +9,7 @@ On MacOS X
     6. change line `config.vm.network "private_network", ip: "<< ip address >>"`
     7. `vagrant up`
 
+
 2. Install Docker and Dokku 
     1. `vagrant ssh`
     2. `apt-get update`
@@ -20,6 +21,7 @@ On MacOS X
     7. `sudo apt-get install libtool`
     8. `sudo apt-get install g++` (does it included in libtool already?)
     9. Increase swap space: http://stackoverflow.com/a/22247782/1022903
+
 
 3. Config host machine
     7. Exit vagrant ssh shell
@@ -34,7 +36,8 @@ On MacOS X
         * sudo make build
         * (reference: http://progrium.viewdocs.io/dokku/upgrading)
 
-3. Create a project and push
+
+4. Create a project and push
     1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
     2. `git push dokkudev master`
     3. For each config:
