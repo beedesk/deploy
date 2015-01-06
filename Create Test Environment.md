@@ -15,12 +15,13 @@ On MacOS X
     3. `apt-get install docker`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
+    5. `sudo apt-get install daemontools`
     5. Exit vagrant ssh shell
     6. Edit `/etc/hosts` to add line:
         * << ip address >>   dokku.me
     7. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
         * (reference: https://github.com/progrium/dokku/blob/master/docs/installation.md)
-    8. Update build-step (saw setuidgid: fatal: unable to run failure)
+    8. Update build-step
         * git clone https://github.com/progrium/buildstep.git
         * cd buildstep
         * git pull origin master
@@ -29,10 +30,12 @@ On MacOS X
 
 3. Create a project and push
     1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
-    2. `git push dokku dev master`
+    2. `git push dokkudev master`
     3. For each config:
-        * `dokku config:set << app name >> ... `
+        * `dokkudev config:set << app name >> ... `
     4. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
         * And, edit `~dokku/<< app name >>ENV` directly
         * ** remember to include `export` in front of each lines
         * `dokku config:set << app name >> a=b`  # to cause config reload 
+    5. `dokkudev logs << app name >>`
+    6. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
