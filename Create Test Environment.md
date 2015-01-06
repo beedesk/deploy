@@ -19,6 +19,13 @@ On MacOS X
     6. Edit `/etc/hosts` to add line:
         * << ip address >>   dokku.me
     7. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
+        * (reference: https://github.com/progrium/dokku/blob/master/docs/installation.md)
+    8. Update build-step (saw setuidgid: fatal: unable to run failure)
+        * git clone https://github.com/progrium/buildstep.git
+        * cd buildstep
+        * git pull origin master
+        * sudo make build
+        * (reference: http://progrium.viewdocs.io/dokku/upgrading)
 
 3. Create a project and push
     1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
