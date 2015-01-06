@@ -17,6 +17,8 @@ On MacOS X
         * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
     5. `sudo apt-get install daemontools`
     6. `sudo apt-get install g++` (nginx failed to built on pcre error.)
+    7. `sudo apt-get install build-essential`
+    8. `sudo apt-get install libtool`
 
 3. Config host machine
     7. Exit vagrant ssh shell
