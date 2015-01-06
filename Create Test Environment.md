@@ -16,12 +16,15 @@ On MacOS X
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
     5. `sudo apt-get install daemontools`
-    5. Exit vagrant ssh shell
-    6. Edit `/etc/hosts` to add line:
+    6. `sudo apt-get install g++` (nginx failed to built on pcre error.)
+
+3. Config host machine
+    7. Exit vagrant ssh shell
+    8. Edit `/etc/hosts` to add line:
         * << ip address >>   dokku.me
-    7. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
+    9. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
         * (reference: https://github.com/progrium/dokku/blob/master/docs/installation.md)
-    8. Update build-step
+    10. Update build-step
         * git clone https://github.com/progrium/buildstep.git
         * cd buildstep
         * git pull origin master
