@@ -8,7 +8,7 @@ On MacOS X
     5. Pick an IP address for Vagrant (such as 10.88.0.8)
     6. change line `config.vm.network "private_network", ip: "<< ip address >>"`
     7. `vagrant up`
-  
+
 2. Install Docker and Dokku 
     1. `vagrant ssh`
     2. `apt-get update`
@@ -16,9 +16,9 @@ On MacOS X
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
     5. `sudo apt-get install daemontools`
-    6. `sudo apt-get install g++` (nginx failed to built on pcre error.)
-    7. `sudo apt-get install build-essential`
-    8. `sudo apt-get install libtool`
+    6. `sudo apt-get install build-essential`
+    7. `sudo apt-get install libtool`
+    8. `sudo apt-get install g++` (does it included in libtool already?)
     9. Increase swap space: http://stackoverflow.com/a/22247782/1022903
 
 3. Config host machine
