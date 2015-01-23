@@ -62,7 +62,7 @@ On MacOS X
 
 
 6. Update MySQL
-    ```
+
         FLUSH TABLES WITH READ LOCK;
         FLUSH LOGS;
         SET GLOBAL binlog_format = 'MIXED';
@@ -70,4 +70,3 @@ On MacOS X
         UNLOCK TABLES;
         
         # http://dba.stackexchange.com/a/6753
-    ```
