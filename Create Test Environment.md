@@ -60,3 +60,14 @@ On MacOS X
     7. `ln -s /var/etc/lib/dokku-alt/plugins/dokku-mariadb/`
     8. `dokku plugins:install`
 
+
+6. Update MySQL
+    ```
+        FLUSH TABLES WITH READ LOCK;
+        FLUSH LOGS;
+        SET GLOBAL binlog_format = 'MIXED';
+        FLUSH LOGS;
+        UNLOCK TABLES;
+        
+        # http://dba.stackexchange.com/a/6753
+    ```
