@@ -48,3 +48,15 @@ On MacOS X
         * `dokku config:set << app name >> a=b`  # to cause config reload 
     5. `dokkudev logs << app name >>`
     6. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
+
+
+5. Install plugins
+    1. log into vagrant
+    2. `cd /var/etc/lib/dokku/plugins`
+    3. `git clone https://github.com/dyson/dokku-docker-options`
+    4. `cd /var/etc/lib`
+    5. `git clone https://github.com/dokku-alt/dokku-alt.git`
+    6. `cd /var/etc/lib/dokku/plugins`
+    7. `ln -s /var/etc/lib/dokku-alt/plugins/dokku-mariadb/`
+    8. `dokku plugins:install`
+
