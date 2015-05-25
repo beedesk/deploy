@@ -15,11 +15,10 @@ On MacOS X
     2. `apt-get update`
     3. `apt-get install docker`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
-        * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.12 bash
+        * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.18 bash
     5. `sudo apt-get install daemontools`
     6. `sudo apt-get install build-essential`
     7. `sudo apt-get install libtool`
-    8. `sudo apt-get install g++` (does it included in libtool already?)
     9. Increase swap space: http://stackoverflow.com/a/22247782/1022903
 
 
@@ -51,14 +50,17 @@ On MacOS X
 
 
 5. Install plugins
-    1. log into vagrant
-    2. `cd /var/etc/lib/dokku/plugins`
+    1. log into vagrant `vagrant ssh`
+    2. create a sub directory for `plugins`: `mkdir /var/etc/lib/dokku-plugins`
+    2. `cd /var/etc/lib/dokku-plugins`
     3. `git clone https://github.com/dyson/dokku-docker-options`
-    4. `cd /var/etc/lib`
-    5. `git clone https://github.com/dokku-alt/dokku-alt.git`
+    3. `git clone https://github.com/ohardy/dokku-mariadb.git`
+    3. `git clone https://github.com/ohardy/dokku-psql.git`
     6. `cd /var/etc/lib/dokku/plugins`
-    7. `ln -s /var/etc/lib/dokku-alt/plugins/dokku-mariadb/`
-    8. `dokku plugins:install`
+    3. `ln -s /var/etc/lib/dokku-plugins/dokku-docker-options`
+    3. `ln -s /var/etc/lib/dokku-plugins/dokku-mariadb.git`
+    3. `ln -s /var/etc/lib/dokku-plugins/dokku-psql.git`
+    8. `sudo dokku plugins:install`
 
 
 6. Update MySQL
