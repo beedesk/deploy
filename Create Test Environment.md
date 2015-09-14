@@ -28,13 +28,7 @@ On MacOS X
         * << ip address >>   dokku.me
     9. `cat ~/.ssh/id_rsa.pub | vagrant ssh dokku.me "sudo sshcommand acl-add dokku $USER"`
         * (reference: https://github.com/progrium/dokku/blob/master/docs/installation.md)
-    10. Update build-step
-        * git clone https://github.com/progrium/buildstep.git
-        * cd buildstep
-        * git pull origin master
-        * sudo make build
-        * (reference: http://progrium.viewdocs.io/dokku/upgrading)
-
+        * (for AWS test machine, do this: `cat ~/.ssh/id_rsa.pub | ssh -i file.pem.txt ubuntu@<< aws public ip >>.amazonaws.com "sudo sshcommand acl-add dokku $USER"`)
 
 4. Create a project and push
     1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
