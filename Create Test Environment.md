@@ -18,7 +18,7 @@ On MacOS X
         * cd && wget https://raw.github.com/progrium/dokku/v0.3.26/bootstrap.sh && sudo DOKKU_TAG=v0.3.26 bash bootstrap.sh
     5. Increase swap space (http://stackoverflow.com/a/17174672):
         * `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024 && sudo mkswap /swapfile && sudo swapon /swapfile`
-       Add this line to /etc/fstab
+    6. Enable swap at boot: add this line to `/etc/fstab`
         * `/swapfile swap swap defaults 0 0`
 
 
