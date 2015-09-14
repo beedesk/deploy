@@ -15,7 +15,7 @@ On MacOS X
     2. `apt-get update`
     3. `apt-get install docker`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
-        * wget -qO- https://raw.github.com/progrium/dokku/v0.3.12/bootstrap.sh | sudo DOKKU_TAG=v0.3.18 bash
+        * wget https://raw.github.com/progrium/dokku/v0.3.26/bootstrap.sh | sudo DOKKU_TAG=v0.3.26 bash
     5. `sudo apt-get install daemontools`
     6. `sudo apt-get install build-essential`
     7. `sudo apt-get install libtool`
