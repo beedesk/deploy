@@ -16,7 +16,10 @@ On MacOS X
     3. `apt-get install git docker daemontools build-essential libtool`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * cd && wget https://raw.github.com/progrium/dokku/v0.3.26/bootstrap.sh && sudo DOKKU_TAG=v0.3.26 bash bootstrap.sh
-    5. Increase swap space: http://stackoverflow.com/a/22247782/1022903
+    5. Increase swap space (http://stackoverflow.com/a/17174672):
+        * `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024 && sudo mkswap /swapfile && sudo swapon /swapfile`
+       Add this line to /etc/fstab
+        * `/swapfile swap swap defaults 0 0`
 
 
 3. Config host machine
