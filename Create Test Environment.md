@@ -13,11 +13,10 @@ On MacOS X
 2. Install Docker and Dokku 
     1. `vagrant ssh`
     2. `apt-get update`
-    3. `apt-get install docker`
+    3. `apt-get install docker daemontools build-essential libtool`
     4. Install dokku: (needed to run it twice last time, maybe a transient problem)
         * wget https://raw.github.com/progrium/dokku/v0.3.26/bootstrap.sh | sudo DOKKU_TAG=v0.3.26 bash
-    5. `sudo apt-get install daemontools build-essential libtool`
-    6. Increase swap space: http://stackoverflow.com/a/22247782/1022903
+    5. Increase swap space: http://stackoverflow.com/a/22247782/1022903
 
 
 3. Config host machine
