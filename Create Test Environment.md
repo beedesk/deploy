@@ -33,14 +33,17 @@ On MacOS X
 4. Create a project and push
     1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
     2. `git push dokkudev master`
-    3. For each config:
+    3. Add an alias and source it
+        * Add this line to ~/.bash_profile: `alias dokkudev='ssh -t dokku@dokku.me'`
+        * Source ~/.bash_profile: `source ~/.bash_profile`
+    4. For each config:
         * `dokkudev config:set << app name >> ... `
-    4. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
+    5. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
         * And, edit `~dokku/<< app name >>ENV` directly
         * ** remember to include `export` in front of each lines
         * `dokkudev config:set << app name >> a=b`  # to cause config reload 
-    5. `dokkudev logs << app name >>`
-    6. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
+    6. `dokkudev logs << app name >>`
+    7. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
 
 
 5. Install plugins
@@ -57,7 +60,10 @@ On MacOS X
     8. `sudo dokku plugins:install`
 
 
-6. Update MySQL
+6. Create a MariaDB "project"
+    1.
+
+7. Update MySQL
 
         FLUSH TABLES WITH READ LOCK;
         FLUSH LOGS;
