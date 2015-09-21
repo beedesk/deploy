@@ -38,7 +38,7 @@ On MacOS X
     4. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
         * And, edit `~dokku/<< app name >>ENV` directly
         * ** remember to include `export` in front of each lines
-        * `dokku config:set << app name >> a=b`  # to cause config reload 
+        * `dokkudev config:set << app name >> a=b`  # to cause config reload 
     5. `dokkudev logs << app name >>`
     6. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
 
