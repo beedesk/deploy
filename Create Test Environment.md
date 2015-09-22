@@ -50,11 +50,9 @@ On MacOS X
     1. log into vagrant `vagrant ssh`
     2. create a sub directory for `plugins`: `mkdir /var/etc/lib/dokku-plugins`
     2. `cd /var/etc/lib/dokku-plugins`
-    3. `git clone https://github.com/dyson/dokku-docker-options`
     3. `git clone https://github.com/ohardy/dokku-mariadb.git`
     3. `git clone https://github.com/ohardy/dokku-psql.git`
     6. `cd /var/etc/lib/dokku/plugins`
-    3. `ln -s /var/etc/lib/dokku-plugins/dokku-docker-options`
     3. `ln -s /var/etc/lib/dokku-plugins/dokku-mariadb.git`
     3. `ln -s /var/etc/lib/dokku-plugins/dokku-psql.git`
     8. `sudo dokku plugins:install`
