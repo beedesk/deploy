@@ -30,23 +30,7 @@ On MacOS X
         * (reference: https://github.com/progrium/dokku/blob/master/docs/installation.md)
         * (for AWS test machine, do this: `cat ~/.ssh/id_rsa.pub | ssh -i file.pem.txt ubuntu@<< aws public ip >>.amazonaws.com "sudo sshcommand acl-add dokku $USER"`)
 
-4. Create a project and push
-    1. `git remote add dokkudev dokku@dokku.me:<< app name >>`
-    2. `git push dokkudev master`
-    3. Add an alias and source it
-        * Add this line to ~/.bash_profile: `alias dokkudev='ssh -t dokku@dokku.me'`
-        * Source ~/.bash_profile: `source ~/.bash_profile`
-    4. For each config:
-        * `dokkudev config:set << app name >> ... `
-    5. Or, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
-        * And, edit `~dokku/<< app name >>ENV` directly
-        * ** remember to include `export` in front of each lines
-        * `dokkudev config:set << app name >> a=b`  # to cause config reload 
-    6. `dokkudev logs << app name >>`
-    7. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
-
-
-5. Install plugins
+4. Install plugins
     1. log into vagrant `vagrant ssh`
     2. create a sub directory for `plugins`: `mkdir /var/etc/lib/dokku-plugins`
     2. `cd /var/etc/lib/dokku-plugins`
@@ -57,11 +41,10 @@ On MacOS X
     3. `ln -s /var/etc/lib/dokku-plugins/dokku-psql.git`
     8. `sudo dokku plugins:install`
 
-
-6. Create a MariaDB "project"
+5. Create a MariaDB "project"
     1.
 
-7. Update MySQL
+6. Update MySQL
 
         FLUSH TABLES WITH READ LOCK;
         FLUSH LOGS;
@@ -70,3 +53,20 @@ On MacOS X
         UNLOCK TABLES;
         
         # http://dba.stackexchange.com/a/6753
+
+7. Create a project and push
+    1. export $APP_NAME=<< app name >>
+    2. `dokku app:create $APP_NAME`
+    3. Add an alias and source it
+        * Add this line to ~/.bash_profile: `alias dokkudev='ssh -t dokku@dokku.me'`
+        * Source ~/.bash_profile: `source ~/.bash_profile`
+    4a. `dokku config:set $APP_NAME KEY_1=VALUE_1 [KEY_2=VALUE_2] ...`
+    4b. **Or**, ssh into vagrant `cd << vagrant folder >> && vagrant ssh`
+        * And, edit `~dokku/<< app name >>ENV` directly
+        * ** remember to include `export` in front of each lines
+        * ** do not include any commented line (it will fail subsequence deploy)
+        * `dokkudev apps:restart $APP_NAME`  # to cause config reload 
+    5. `git remote add dokkudev dokku@dokku.me:$APP_NAME`
+    6. `git push dokkudev master`
+    8. `dokkudev logs $APP_NAME`
+    9. If error arise: `setuidgid: fatal: unable to run failure`, do step 2.5 ('daemontools')
