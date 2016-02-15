@@ -1,0 +1,12 @@
+---
+- name: Install Dokku
+  sudo: yes
+  vars:
+    swap_file_path: /swapfile
+    dokku_plugins:
+      - https://github.com/ohardy/dokku-mariadb.git
+      - https://github.com/ohardy/dokku-psql.git
+
+  roles:
+    - swap
+    - dokku
