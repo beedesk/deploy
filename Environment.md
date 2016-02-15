@@ -1,4 +1,44 @@
-On MacOS X
+Environment Basic
+-----------------
+1. Download and Install Ansible
+    * brew install ansible
+2. Clone this repo
+    * https://github.com/beedesk/deploy.git
+
+Test Environment
+----------------
+1. Follow the step of "Environment Basic" (see above)
+2. Setup local test env
+    * $ ansible-playbook setup.yml
+3. Create and deploy project to test
+    * $ ansible-playbook -i test_hosts project.yml
+
+Deploy to Production
+--------------------
+1. Follow the step of "Environment Basic" (see above)
+2. Setup production hosts 
+    * $ ansible-playbook -i prod_hosts setup.yml
+3. Create and deploy project to prod
+    * $ ansible-playbook -i prod_hosts project.yml
+
+Background
+----------
+Here is what each of the steps above does:
+
+setup.yml will:
+1. install vagrant and virtualbox (step 1)
+2. set ip in Vagrantfile, test_hosts and /etc/hosts (step 3)
+3. run vagrant up that triggered dokku.yml
+4. add ssh keys (step 3)
+
+dokku.yml will
+1. set swap with roles/swap
+2. install dokku + plugins with roles/dokku (apt only install) (step 2, 4)
+
+project.yml will:
+1. create database per project (step 5, 6)
+2. create and push given project (step 7)
+
 
 1. Download and Install Vagrant
     1. a. Create a new folder << vagrant folder >> (such as `ubuntu-docker`)
