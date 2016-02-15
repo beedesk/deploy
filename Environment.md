@@ -1,3 +1,6 @@
+Environment
+===========
+
 Environment Basic
 -----------------
 1. Download and Install Ansible
@@ -22,7 +25,7 @@ Deploy to Production
     * $ ansible-playbook -i prod_hosts project.yml
 
 Background
-----------
+==========
 Here is what each of the steps above does:
 
 setup.yml will:
@@ -39,7 +42,8 @@ project.yml will:
 1. create database per project (step 5, 6)
 2. create and push given project (step 7)
 
-
+Steps
+-----
 1. Download and Install Vagrant
     1. a. Create a new folder << vagrant folder >> (such as `ubuntu-docker`)
     2. `cd << vagrant folder >>`
