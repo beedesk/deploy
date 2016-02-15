@@ -29,16 +29,19 @@ Background
 Here is what each of the steps above does:
 
 setup.yml will:
+
 1. install vagrant and virtualbox (step 1)
 2. set ip in Vagrantfile, test_hosts and /etc/hosts (step 3)
 3. run vagrant up that triggered dokku.yml
 4. add ssh keys (step 3)
 
-dokku.yml will
+dokku.yml will:
+
 1. set swap with roles/swap
 2. install dokku + plugins with roles/dokku (apt only install) (step 2, 4)
 
 project.yml will:
+
 1. create database per project (step 5, 6)
 2. create and push given project (step 7)
 
