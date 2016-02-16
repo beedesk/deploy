@@ -2,6 +2,7 @@
 - name: Install Dokku
   sudo: yes
   vars:
+    public_key: '~/.ssh/id_rsa.pub'
     swap_file_path: /swapfile
     dokku_plugins:
       - https://github.com/ohardy/dokku-mariadb.git
@@ -10,3 +11,7 @@
   roles:
     - swap
     - dokku
+
+  post_tasks:
+    - name: Add Public Key into Dokku user
+      authorized_key: user=dokku key="{{ lookup('file', public_key) }}"

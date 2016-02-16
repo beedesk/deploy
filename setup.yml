@@ -1,0 +1,36 @@
+---
+- name: Install Dokku
+  hosts: localhost
+  vars:
+    dns: dokku.me
+    ip: 192.168.33.15
+
+  tasks:
+    - name: Get current directory
+      shell: pwd
+      register: current_dir
+
+    - name: Install Virtualbox and Vagrant on MacOSX with Homebrew
+      shell: brew cask install {{ item }}
+      when: ansible_os_family == 'Darwin'
+      sudo: yes
+      with_items:
+        - virtualbox
+        - vagrant
+        - vagrant-manager
+
+    - name: Install Virtualbox and Vagrant on Linux
+      package: name={{ item }} state=present
+      when: ansible_os_family not in ('Darwin', 'Windows')
+      sudo: yes
+      with_items:
+        - virtualbox
+        - vagrant
+        - virtualbox-dkms
+
+    - name: Create Vagrantfile
+      template: src={{ current_dir.stdout }}/Vagrantfile.j2 dest={{ current_dir.stdout }}/Vagrantfile backup=yes
+
+    - name: Add dokku into hosts
+      lineinfile: dest=/etc/hosts line="{{ ip }} {{ dns }}"
+      sudo: yes
