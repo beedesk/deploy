@@ -1,7 +1,7 @@
 # ansible-vagrant-dokku
 Ansible playbooks for set up vagrant with dokku
 
-# Install vagrant and setup environment
+### Install vagrant and setup environment
 
 Open `setup.yml` with your favorite text redactor and check it.
 This script require sudo so you can execute `sudo echo "Hey!"` in the same shell before ansible or ask for prompt password with `-K` option.
@@ -12,7 +12,7 @@ ansible-playbook setup.yml
 
 For verbose output use `-v` option.
 
-# Setup Vagrant
+### Setup Vagrant
 
 Now you can setup Vagrant with your new Vagrantfile:
 ```
