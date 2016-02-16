@@ -1,0 +1,27 @@
+---
+- name: Add packagecloud.io key into apt
+  apt_key: url=https://packagecloud.io/gpg.key state=present
+
+- name: Add dokku repo into source list
+  apt_repository: repo='deb https://packagecloud.io/dokku/dokku/ubuntu/ trusty main' state=present
+
+- name: Install Dokku and necessary soft like Docker with apt
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items: 
+    - git
+    - lxc-docker
+    - daemontools
+    - build-essential
+    - libtool
+    - docker
+    - dokku
+
+- name: Add user into Docker group
+  user: name={{ansible_user_id}} groups=docker append=yes
+
+- name: Dokku postinstall
+  shell: dokku plugin:install-dependencies --core
+
+- name: Install dokku plugins
+  git: repo={{ item.repo }} dest=/var/lib/dokku/plugins/{{ item.name }} accept_hostkey=yes version={{ item.version|default('master') }}
+  with_items: dokku_plugins
