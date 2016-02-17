@@ -6,36 +6,58 @@ This is an Ansible playbook to setup Dokku environment for production and test
 Environment Basic
 -----------------
 1. Download and Install Ansible
-    * brew install ansible
+
+   ``` bash
+      brew install ansible
+   ```
+
 2. Clone this repo
-    * https://github.com/beedesk/deploy.git
+
+   ``` bash
+      git clone https://github.com/beedesk/deploy.git
+   ```
 
 Test Environment
 ----------------
 1. Follow the step of "Environment Basic" (see above)
 2. Install vagrant and setup environment
-    * $ # Uses sudo or -K option
-    * $ # For verbose output use `-v` option.
-    * $ ansible-playbook setup.yml
-3. Run Vagrant
-    * $ vagrant up
 
-    $ # Note:
-    $ # Vagrant will set up new VM for you and apply to it `dokku.yml`, that will
-    $ # set up dokku into VM.
-    $ # If something goes wrong you can reapply `dokku.yml` with command:
-    * $ vagrant provision
+   ``` bash
+      # Uses sudo or -K option
+      # For verbose output use `-v` option.
+      ansible-playbook setup.yml
+   ```
+3. Run Vagrant
+
+   ``` bash
+      vagrant up
+      # Note:
+      # Vagrant will set up new VM for you and apply to it `dokku.yml`, that will
+      # set up dokku into VM.
+      # If something goes wrong you can reapply `dokku.yml` with command:
+      # $ vagrant provision
+   ```
 
 4. Create and deploy project to test
-    * $ ansible-playbook -i test_hosts project.yml
+
+   ``` bash
+      ansible-playbook -i test_hosts project.yml
+   ```
 
 Deploy to Production
 --------------------
 1. Follow the step of "Environment Basic" (see above)
 2. Setup production hosts 
-    * $ ansible-playbook -i prod_hosts setup.yml
+
+   ``` bash
+      ansible-playbook -i prod_hosts setup.yml
+   ```
+
 3. Create and deploy project to prod
-    * $ ansible-playbook -i prod_hosts project.yml
+
+   ``` bash
+      $ ansible-playbook -i prod_hosts project.yml
+   ```
 
 Background
 ==========
