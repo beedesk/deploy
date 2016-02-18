@@ -5,13 +5,15 @@ This is an Ansible playbook to setup Dokku environment for production and test
 
 Environment Basic
 -----------------
-1. Download and Install Ansible
+1. Install Python and pip
+
+2. Download and Install Ansible
 
    ``` bash
-      brew install ansible
+      pip install ansible
    ```
 
-2. Clone this repo
+3. Clone this repo
 
    ``` bash
       git clone https://github.com/beedesk/deploy.git
