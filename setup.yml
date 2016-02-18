@@ -31,6 +31,9 @@
     - name: Create Vagrantfile
       template: src={{ current_dir.stdout }}/Vagrantfile.j2 dest={{ current_dir.stdout }}/Vagrantfile backup=yes
 
+    - name: Create test_hosts
+      template: src={{ current_dir.stdout }}/test_hosts.j2 dest={{ current_dir.stdout }}/test_hosts backup=yes
+
     - name: Add dokku into hosts
       lineinfile: dest=/etc/hosts line="{{ ip }} {{ dns }}"
       sudo: yes

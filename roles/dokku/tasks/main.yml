@@ -1,15 +1,26 @@
 ---
-- name: Add packagecloud.io key into apt
-  apt_key: url=https://packagecloud.io/gpg.key state=present
+- name: Update SSL, Python and NTP
+  apt: name={{ item }} update_cache=yes state=latest 
+  with_items:
+    - ca-certificates
+    - openssl
+    - python
+    - ntp
 
-- name: Add dokku repo into source list
-  apt_repository: repo='deb https://packagecloud.io/dokku/dokku/ubuntu/ trusty main' state=present
+- name: Add packagecloud.io key into apt
+  apt_key: url={{ item }} state=present
+  with_items:
+    - https://packagecloud.io/gpg.key
+
+- name: Add Docker and Dokku repos into source list
+  apt_repository: repo={{ item }} state=present
+  with_items:
+    - 'deb https://packagecloud.io/dokku/dokku/ubuntu/ trusty main'
 
 - name: Install Dokku and necessary soft like Docker with apt
-  apt: pkg={{ item }} state=installed update_cache=yes
+  apt: pkg={{ item }} state=latest update_cache=yes
   with_items: 
     - git
-    - lxc-docker
     - daemontools
     - build-essential
     - libtool
