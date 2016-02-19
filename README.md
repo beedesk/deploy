@@ -52,7 +52,7 @@ Deploy to Production
 2. Setup production hosts 
 
    ``` bash
-      ansible-playbook -i prod_hosts setup.yml
+      ansible-playbook -i prod_hosts dokku.yml
    ```
 
 3. Create and deploy project to prod
