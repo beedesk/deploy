@@ -34,5 +34,5 @@
   shell: dokku plugin:install-dependencies --core
 
 - name: Install dokku plugins
-  git: repo={{ item.repo }} dest=/var/lib/dokku/plugins/{{ item.name }} accept_hostkey=yes version={{ item.version|default('master') }}
+  shell: dokku plugin:install {{ item }} --name {{ item.split('/')[-1].split('-')[-1] }}
   with_items: dokku_plugins

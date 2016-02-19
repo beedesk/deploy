@@ -12,5 +12,5 @@ What will be installed:
 - dokku
 
 Default Dokku plagins:
-- https://github.com/ohardy/dokku-mariadb.git
-- https://github.com/ohardy/dokku-psql.git
+- https://github.com/ohardy/dokku-mariadb
+- https://github.com/ohardy/dokku-psql

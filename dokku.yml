@@ -7,8 +7,8 @@
     swap_file_path: /swapfile
     swap_file_size_kb: 1048576
     dokku_plugins:
-      - https://github.com/ohardy/dokku-mariadb.git
-      - https://github.com/ohardy/dokku-psql.git
+      - https://github.com/ohardy/dokku-mariadb
+      - https://github.com/ohardy/dokku-psql
 
   roles:
     - swap
