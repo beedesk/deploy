@@ -37,3 +37,9 @@
     - name: Add dokku into hosts
       lineinfile: dest=/etc/hosts line="{{ ip }} {{ dns }}"
       sudo: yes
+
+    - name: Add alias into Bash Profile
+      lineinfile: dest='~/.bash_profile' line="alias dokkudev='ssh -t dokku@{{ dns }}'"
+
+    - name: Activate new Bash Profile
+      shell: source ~/.bash_profile
