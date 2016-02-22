@@ -15,5 +15,9 @@
     - dokku
 
   post_tasks:
+
     - name: Add Public Key into Dokku user
       authorized_key: user=dokku key="{{ lookup('file', public_key) }}"
+
+    - name: Start MariaDB
+      shell: dokku mariadb:start
