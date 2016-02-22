@@ -1,0 +1,24 @@
+---
+# http://dokku.viewdocs.io/dokku/application-deployment/
+- name: Setup Project
+  hosts: dokku
+  vars:
+    project_name: app2
+    project_env:
+      - key=value
+
+  tasks:
+
+    - name: Create Dokku project
+      shell: dokku apps:create {{ project_name }}
+
+    - name: Create MariaDB database for project
+      shell: dokku mariadb:create {{ project_name }}
+
+    #- name: Link MariaDB database with project
+    #  shell: dokku mariadb:link {{ project_name }} {{ project_name }}
+
+    - name: Add ENV variables into project
+      shell: dokku config:set {{ project_name }} {{ " ".join(project_env) }}
+
+
