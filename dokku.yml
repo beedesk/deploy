@@ -10,8 +10,10 @@
       - https://github.com/ohardy/dokku-mariadb
       - https://github.com/ohardy/dokku-psql
 
+  pre_tasks: []
+
   roles:
-    - swap
+    - { role: swap, when: ansible_user_id == "vagrant" }
     - dokku
 
   post_tasks:
