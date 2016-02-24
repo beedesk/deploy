@@ -12,7 +12,7 @@
 
     - name: Install Virtualbox and Vagrant on MacOSX with Homebrew
       shell: brew cask install {{ item }}
-      when: ansible_os_family == 'Darwin'
+      when: ansible_os_family == 'Darwin' and not {{ ansible_env.SKIP_INSTALL }}
       sudo: yes
       with_items:
         - virtualbox
@@ -21,7 +21,7 @@
 
     - name: Install Virtualbox and Vagrant on Linux
       package: name={{ item }} state=present
-      when: ansible_os_family not in ('Darwin', 'Windows')
+      when: ansible_os_family not in ('Darwin', 'Windows') and not {{ ansible_env.SKIP_INSTALL }}
       sudo: yes
       with_items:
         - virtualbox
