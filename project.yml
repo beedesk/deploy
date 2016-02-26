@@ -3,22 +3,37 @@
 - name: Setup Project
   hosts: dokku
   vars:
-    project_name: app2
+    project_name: python-getting-started
+    project_url: git@github.com:heroku/python-getting-started.git
     project_env:
       - key=value
 
   tasks:
+    - name: Get current directory
+      local_action: shell pwd
+      register: current_dir
+
+    - name: Checkout project to apps directory
+      local_action: git repo={{ project_url }} dest={{ current_dir.stdout }}/apps/{{ project_name }}
 
     - name: Create Dokku project
       shell: dokku apps:create {{ project_name }}
+      sudo: yes
 
     - name: Create MariaDB database for project
       shell: dokku mariadb:create {{ project_name }}
-
-    #- name: Link MariaDB database with project
-    #  shell: dokku mariadb:link {{ project_name }} {{ project_name }}
+      sudo: yes
 
     - name: Add ENV variables into project
       shell: dokku config:set {{ project_name }} {{ " ".join(project_env) }}
+      sudo: yes
 
+    - name: Add Dokku as remote repository
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git remote add dokku dokku@dokku.me:{{ project_name }}
 
+    - name: Push project to Dokku
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git push dokku master
+
+    - name: Link MariaDB database with project
+      shell: dokku mariadb:link {{ project_name }} {{ project_name }}
+      sudo: yes

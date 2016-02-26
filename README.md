@@ -46,10 +46,18 @@ Test Environment
       # $ vagrant provision
    ```
 
-4. Create and deploy project to test
+4. Open [dokku](http://dokku.me/) in browser and finish setup
+
+5. Create and deploy project to test
 
    ``` bash
       ansible-playbook -i test_hosts project.yml
+   ```
+
+You can set variables in `project.yml` playbook or via cli option:
+
+   ```bash
+   -e {project_name: python-getting-started, project_url: git@github.com:heroku/python-getting-started.git, project_env: ["key=value", "foo=bar"]}
    ```
 
 Deploy to Production
@@ -61,10 +69,12 @@ Deploy to Production
       ansible-playbook -i prod_hosts dokku.yml
    ```
 
-3. Create and deploy project to prod
+3. Connect to your host in browser and finish dokku setup
+
+4. Create and deploy project to prod
 
    ``` bash
-      $ ansible-playbook -i prod_hosts project.yml
+      $ ansible-playbook -i prod_hosts project.yml 
    ```
 
 Background
@@ -85,8 +95,16 @@ dokku.yml will:
 
 project.yml will:
 
-1. create database per project (step 5, 6)
-2. create and push given project (step 7)
+1. checkout given project to `apps` directory
+2. create database per project (step 5, 6)
+3. create and push given project (step 7)
+
+Docs
+----
+- [dokku application deployment](http://dokku.viewdocs.io/dokku/application-deployment/)
+- [heroku python getting started](https://github.com/heroku/python-getting-started)
+- [heroku Procfile](https://devcenter.heroku.com/articles/procfile)
+- [heroku buildpacks](https://elements.heroku.com/buildpacks)
 
 Steps
 -----

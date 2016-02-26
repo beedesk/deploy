@@ -1,2 +1,2 @@
 [dokku]
-dokku.me ansible_ssh_user=dokku
+dokku.me ansible_ssh_user=vagrant

@@ -13,13 +13,16 @@
   pre_tasks: []
 
   roles:
-    - { role: swap, when: ansible_user_id == "vagrant" }
+    - { role: swap, when: ansible_ssh_user != "vagrant" }
     - dokku
 
   post_tasks:
 
+    - name: Add Public Key into main user
+      authorized_key: user={{ ansible_ssh_user }} key="{{ lookup('file', public_key) }}"
+
     - name: Add Public Key into Dokku user
-      authorized_key: user=dokku key="{{ lookup('file', public_key) }}"
+      shell: echo "{{ lookup('file', public_key) }}" | sshcommand acl-add dokku deployment_key
 
     - name: Start MariaDB
       shell: dokku mariadb:start
