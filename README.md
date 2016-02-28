@@ -69,6 +69,8 @@ Deploy to Production
       vi prod_hosts
    ```
 
+   The hosts file should look like this:
+
    ```
       [dokku]
       aws.ip.address	ansible_user=ubuntu	ansible_ssh_private_key_file=~/.ssh/test-ansible.pem.txt
