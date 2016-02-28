@@ -1,0 +1,28 @@
+---
+- name: Install Dokku
+  sudo: yes
+  hosts: dokku
+  vars:
+    public_key: '~/.ssh/id_rsa.pub'
+    swap_file_path: /swapfile
+    swap_file_size_kb: 1048576
+    dokku_plugins:
+      - https://github.com/ohardy/dokku-mariadb
+      - https://github.com/ohardy/dokku-psql
+
+  pre_tasks: []
+
+  roles:
+    - { role: swap, when: ansible_ssh_user != "vagrant" }
+    - dokku
+
+  post_tasks:
+
+    - name: Add Public Key into main user
+      authorized_key: user={{ ansible_ssh_user }} key="{{ lookup('file', public_key) }}"
+
+    - name: Add Public Key into Dokku user
+      shell: echo "{{ lookup('file', public_key) }}" | sshcommand acl-add dokku deployment_key
+
+    - name: Start MariaDB
+      shell: dokku mariadb:start

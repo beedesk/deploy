@@ -1,0 +1,2 @@
+[dokku]
+dokku.me ansible_ssh_user=vagrant
