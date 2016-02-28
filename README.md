@@ -63,6 +63,17 @@ You can set variables in `project.yml` playbook or via cli option:
 Deploy to Production
 --------------------
 1. Follow the step of "Environment Basic" (see above)
+2. Create a hosts file with `[dokku]` section
+
+   ```
+      vi prod_hosts
+   ```
+
+   ```
+      [dokku]
+      aws.ip.address	ansible_user=ubuntu	ansible_ssh_private_key_file=~/.ssh/test-ansible.pem.txt
+   ```
+
 2. Setup production hosts
 
    ``` bash
