@@ -1,14 +1,11 @@
 ---
-- name: Install Dokku
+- name: Install App Dependencies to Host Machine
   sudo: yes
   hosts: dokku
   vars:
     public_key: '~/.ssh/id_rsa.pub'
     swap_file_path: /swapfile
     swap_file_size_kb: 1048576
-    dokku_plugins:
-      - https://github.com/ohardy/dokku-mariadb
-      - https://github.com/ohardy/dokku-psql
 
   pre_tasks: []
 
