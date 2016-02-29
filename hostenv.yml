@@ -14,7 +14,7 @@
 
   roles:
     - { role: swap, when: ansible_ssh_user != "vagrant" }
-    - dokku
+    - hostenv
 
   post_tasks:
 

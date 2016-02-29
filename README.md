@@ -43,9 +43,9 @@ Local Development Environment
    ``` bash
       vagrant up
       # Note:
-      # Vagrant will set up new VM for you and apply to it `dokku.yml`, that will
-      # set up dokku into VM.
-      # If something goes wrong you can reapply `dokku.yml` with command:
+      # Vagrant will set up new VM for you and apply to it `hostenv.yml`, that will
+      # set up dokku and other dependencies into VM.
+      # If something goes wrong you can reapply `hostenv.yml` with command:
       # $ vagrant provision
    ```
 
@@ -82,10 +82,10 @@ Deploy to Production
 2. Setup production hosts
 
    ``` bash
-      ansible-playbook -i prod_hosts dokku.yml
+      ansible-playbook -i prod_hosts hostenv.yml
    ```
 
-3. Connect to your host in browser and finish dokku setup
+3. Connect to your host in browser and finish `hostenv` setup
 
 4. Create and deploy project to prod
 
@@ -101,13 +101,14 @@ localdev.yml will:
 
 1. install vagrant and virtualbox (step 1)
 2. set ip in Vagrantfile, test_hosts and /etc/hosts (step 3)
-3. run vagrant up that triggered dokku.yml
+3. run vagrant up that triggered hostenv.yml
 4. add ssh keys (step 3)
 
-dokku.yml will:
+hostenv.yml will:
+
 
 1. set swap with roles/swap
-2. install dokku + plugins with roles/dokku (apt only install) (step 2, 4)
+2. install dokku + plugins with roles/hostenv (apt only install) (step 2, 4)
 
 project.yml will:
 

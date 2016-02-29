@@ -1,6 +1,6 @@
 ---
 - name: Update SSL, Python and NTP
-  apt: name={{ item }} update_cache=yes state=latest 
+  apt: name={{ item }} update_cache=yes state=latest
   with_items:
     - ca-certificates
     - openssl
@@ -19,7 +19,7 @@
 
 - name: Install Dokku and necessary soft like Docker with apt
   apt: pkg={{ item }} state=latest update_cache=yes
-  with_items: 
+  with_items:
     - git
     - daemontools
     - build-essential
