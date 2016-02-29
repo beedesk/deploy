@@ -25,16 +25,19 @@ Environment Basic
       git clone https://github.com/beedesk/deploy.git
    ```
 
-Test Environment
-----------------
+Local Development Environment
+-----------------------------
 1. Follow the step of "Environment Basic" (see above)
-2. Install vagrant and setup environment
+2. Install local goodies (such as vagrant and setup environment)
 
    ``` bash
       # Uses sudo or -K option
       # For verbose output use `-v` option.
-      ansible-playbook setup.yml --connection=local -K
+      ansible-playbook localdev.yml --connection=local -K
+      # to skip installation of VirtualBox and Vigrant do these:
+      # SKIP_INSTALL=1 ansible-playbook localdev.yml --connection=local -K
    ```
+
 3. Run Vagrant
 
    ``` bash
@@ -94,7 +97,7 @@ Background
 ==========
 Here is what each of the steps above does:
 
-setup.yml will:
+localdev.yml will:
 
 1. install vagrant and virtualbox (step 1)
 2. set ip in Vagrantfile, test_hosts and /etc/hosts (step 3)
