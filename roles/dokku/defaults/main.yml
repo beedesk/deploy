@@ -1,4 +1,4 @@
 ---
 dokku_plugins:
-  - https://github.com/ohardy/dokku-mariadb
-  - https://github.com/ohardy/dokku-psql
+  - https://github.com/dokku/dokku-postgres.git
+
