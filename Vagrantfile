@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
     
     config.vm.box = "ubuntu/trusty64"
     config.vm.hostname = "dokku.me"
-    config.vm.network :private_network, ip: "192.168.33.15"
+    config.vm.network :private_network, ip: "10.88.0.8"
     
     config.ssh.insert_key = false
     
@@ -20,7 +20,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision "ansible" do |ansible|
         ansible.verbose = "v"
         ansible.limit = "dokku"
-        ansible.playbook = "dokku.yml"
+        ansible.playbook = "setup_dokku.yml"
         ansible.inventory_path = "test_hosts"
         ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
     end

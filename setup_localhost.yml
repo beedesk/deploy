@@ -3,7 +3,7 @@
   hosts: localhost
   vars:
     dns: dokku.me
-    ip: 192.168.33.15
+    ip: 10.88.0.8
 
   tasks:
     - name: Get current directory
