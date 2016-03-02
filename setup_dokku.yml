@@ -22,6 +22,3 @@
 
     - name: Add Public Key into Dokku user
       shell: echo "{{ lookup('file', public_key) }}" | sshcommand acl-add dokku deployment_key
-
-    - name: Start PostgresQL container
-      shell: dokku postgres:start
