@@ -57,7 +57,7 @@ Test Environment
 You can set variables in `project.yml` playbook or via cli option:
 
    ```bash
-   -e {project_name: python-getting-started, project_url: git@github.com:heroku/python-getting-started.git, project_env: ["key=value", "foo=bar"]}
+   -e "{ 'project_name': 'python-getting-started', 'project_url': 'git@github.com:heroku/python-getting-started.git', 'project_env': ['key=value', 'foo=bar']}"
    ```
 
 Deploy to Production
