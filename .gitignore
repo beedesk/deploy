@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 .vagrant
+apps/
 
 __pycache__/
 *.py[cod]

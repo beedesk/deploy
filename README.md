@@ -33,16 +33,16 @@ Test Environment
    ``` bash
       # Uses sudo or -K option
       # For verbose output use `-v` option.
-      ansible-playbook setup.yml --connection=local -K
+      ansible-playbook setup_localhost.yml --connection=local -K
    ```
 3. Run Vagrant
 
    ``` bash
       vagrant up
       # Note:
-      # Vagrant will set up new VM for you and apply to it `dokku.yml`, that will
+      # Vagrant will set up new VM for you and apply to it `setup_dokku.yml`, that will
       # set up dokku into VM.
-      # If something goes wrong you can reapply `dokku.yml` with command:
+      # If something goes wrong you can reapply `setup_dokku.yml` with command:
       # $ vagrant provision
    ```
 
@@ -57,7 +57,7 @@ Test Environment
 You can set variables in `project.yml` playbook or via cli option:
 
    ```bash
-   -e {project_name: python-getting-started, project_url: git@github.com:heroku/python-getting-started.git, project_env: ["key=value", "foo=bar"]}
+   -e "{ 'project_name': 'python-getting-started', 'project_url': 'git@github.com:heroku/python-getting-started.git', 'project_env': ['key=value', 'foo=bar']}"
    ```
 
 Deploy to Production
@@ -79,7 +79,7 @@ Deploy to Production
 2. Setup production hosts
 
    ``` bash
-      ansible-playbook -i prod_hosts dokku.yml
+      ansible-playbook -i prod_hosts setup_dokku.yml
    ```
 
 3. Connect to your host in browser and finish dokku setup
@@ -94,14 +94,14 @@ Background
 ==========
 Here is what each of the steps above does:
 
-setup.yml will:
+setup_localhost.yml will:
 
 1. install vagrant and virtualbox (step 1)
 2. set ip in Vagrantfile, test_hosts and /etc/hosts (step 3)
 3. run vagrant up that triggered dokku.yml
 4. add ssh keys (step 3)
 
-dokku.yml will:
+setup_dokku.yml will:
 
 1. set swap with roles/swap
 2. install dokku + plugins with roles/dokku (apt only install) (step 2, 4)

@@ -7,8 +7,7 @@
     swap_file_path: /swapfile
     swap_file_size_kb: 1048576
     dokku_plugins:
-      - https://github.com/ohardy/dokku-mariadb
-      - https://github.com/ohardy/dokku-psql
+      - https://github.com/dokku/dokku-postgres.git
 
   pre_tasks: []
 
@@ -23,6 +22,3 @@
 
     - name: Add Public Key into Dokku user
       shell: echo "{{ lookup('file', public_key) }}" | sshcommand acl-add dokku deployment_key
-
-    - name: Start MariaDB
-      shell: dokku mariadb:start

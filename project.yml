@@ -20,8 +20,8 @@
       shell: dokku apps:create {{ project_name }}
       sudo: yes
 
-    - name: Create MariaDB database for project
-      shell: dokku mariadb:create {{ project_name }}
+    - name: Create PostgresQL database for project
+      shell: dokku postgres:create {{ project_name }}
       sudo: yes
 
     - name: Add ENV variables into project
@@ -34,6 +34,6 @@
     - name: Push project to Dokku
       local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git push dokku master
 
-    - name: Link MariaDB database with project
-      shell: dokku mariadb:link {{ project_name }} {{ project_name }}
+    - name: Link PostgresQL database with project
+      shell: dokku postgres:link {{ project_name }} {{ project_name }}
       sudo: yes
