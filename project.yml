@@ -3,10 +3,12 @@
 - name: Setup Project
   hosts: dokku
   vars:
-    project_name: python-getting-started
-    project_url: git@github.com:heroku/python-getting-started.git
-    project_env:
-      - key=value
+    backup_dir: /home/dokku/backup
+    backup_s3_bucket: backup
+    alert_command: "curl -fsS --retry 3 https://hchk.io/3d82de35-bce7-449d-8d54-274eae59d7f2 > /dev/null"
+    projects:
+      - {name: python-getting-started, url: "git@github.com:heroku/python-getting-started.git", dbname: python, env: [key=value, foo=bar]}
+      - {name: ruby-rails-sample, url: "git@github.com:heroku/ruby-rails-sample.git", dbname: ruby, env: [key=value, foo=bar]}
 
   tasks:
     - name: Get current directory
@@ -14,26 +16,61 @@
       register: current_dir
 
     - name: Checkout project to apps directory
-      local_action: git repo={{ project_url }} dest={{ current_dir.stdout }}/apps/{{ project_name }}
+      local_action: git repo={{ item.url }} dest={{ current_dir.stdout }}/apps/{{ item.name }}
+      with_items: "{{ projects }}"
 
     - name: Create Dokku project
-      shell: dokku apps:create {{ project_name }}
-      sudo: yes
+      shell: dokku apps:create {{ item.name }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
 
     - name: Create PostgresQL database for project
-      shell: dokku postgres:create {{ project_name }}
-      sudo: yes
+      shell: dokku postgres:create {{ item.dbname }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
+      ignore_errors: yes
 
     - name: Add ENV variables into project
-      shell: dokku config:set {{ project_name }} {{ " ".join(project_env) }}
-      sudo: yes
+      shell: dokku config:set {{ item.name }} {{ " ".join(item.env) }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
 
     - name: Add Dokku as remote repository
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git remote add dokku dokku@dokku.me:{{ project_name }}
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git remote add dokku dokku@dokku.me:{{ item.name }}
+      with_items: "{{ projects }}"
 
     - name: Push project to Dokku
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git push dokku master
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git push dokku master
+      with_items: "{{ projects }}"
 
     - name: Link PostgresQL database with project
-      shell: dokku postgres:link {{ project_name }} {{ project_name }}
-      sudo: yes
+      shell: dokku postgres:link {{ item.dbname }} {{ item.name }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
+
+    - name: Create backup directory
+      file: path={{ backup_dir }}/{{ item.name }} state=directory
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
+
+    - name: Copy backup script
+      template: src=backup.sh.j2 dest={{ backup_dir }}/backup_{{ item.name }}.sh mode="u=rwx,g=r,o=r"
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
+
+    - name: Set backup cronjob
+      cron:
+        name: "backup {{ item.1.name }}"
+        minute: "{{ item.0 % 60 }}"
+        hour: "{{ item.0 % 24 }}"
+        job: "{{ backup_dir }}/backup_{{ item.1.name }}.sh && {{ alert_command }}"
+      become: yes
+      become_user: dokku
+      with_indexed_items: "{{ projects }}"
+

@@ -50,14 +50,23 @@ Test Environment
 
 5. Create and deploy project to test
 
-   ``` bash
-      ansible-playbook -i test_hosts project.yml
-   ```
-
-You can set variables in `project.yml` playbook or via cli option:
+Open `project.yml` with text redactor and fill variables:
 
    ```bash
-   -e "{ 'project_name': 'python-getting-started', 'project_url': 'git@github.com:heroku/python-getting-started.git', 'project_env': ['key=value', 'foo=bar']}"
+      $ nano project.yml
+        vars:
+          backup_dir: /home/dokku/backup
+          backup_s3_bucket: backup
+          alert_command: "curl -fsS --retry 3 https://hchk.io/3d82de35-bce7-449d-8d54-274eae59d7f2 > /dev/null"
+          projects:
+            - {name: python-getting-started, url: "git@github.com:heroku/python-getting-started.git", dbname: python, env: [key=value, foo=bar]}
+            - {name: ruby-rails-sample, url: "git@github.com:heroku/ruby-rails-sample.git", dbname: ruby, env: [key=value, foo=bar]}
+   ```
+
+Then execute Ansible
+
+   ``` bash
+      ansible-playbook -i test_hosts project.yml
    ```
 
 Deploy to Production
