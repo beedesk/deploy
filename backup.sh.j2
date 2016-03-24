@@ -1,5 +1,5 @@
 #!/bin/bash
-dokku postgres:export {{ item.dbname }} > {{ backup_dir }}/{{ item.name }}/db_{{ item.dbname }}_`date +'%d-%m-%Y'`.sql
 find "{{ backup_dir }}/{{ item.name }}" -name db_{{ item.dbname }}_* -mtime +8 -exec rm {} \;
-aws s3 cp {{ backup_dir }}/{{ item.name }} s3://{{ backup_s3_bucket }}/{{ item.name }} --recursive
+dokku postgres:export {{ item.dbname }} > {{ backup_dir }}/{{ item.name }}/db_{{ item.dbname }}_`date +'%d-%m-%Y'`.sql
+#aws s3 cp {{ backup_dir }}/{{ item.name }} s3://{{ backup_s3_bucket }}/{{ item.name }} --recursive
 exit $?
