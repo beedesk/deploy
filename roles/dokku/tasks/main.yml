@@ -44,3 +44,4 @@
 - name: Install dokku plugins
   shell: dokku plugin:install {{ item }} --name {{ item.split('/')[-1].split('-')[-1] }}
   with_items: dokku_plugins
+  ignore_errors: yes
