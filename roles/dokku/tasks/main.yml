@@ -31,6 +31,7 @@
     - daemontools
     - build-essential
     - libtool
+    - sigil
     - docker
     - dokku
 
