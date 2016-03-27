@@ -12,10 +12,9 @@
     backup_dir: /home/dokku/backup
     backup_s3_bucket: 'backup_bucket_name'
     backup_alert_command: "curl -fsS --retry 3 https://hchk.io/3d82de35-bce7-449d-8d54-274eae59d7f2 > /dev/null"
-
     databases:
       - {engine: 'postgres', name: 'appdb'}
-      - {engine: 'mysql', name: 'mydb'}
+      - {engine: 'mariadb', name: 'mydb'}
 
   pre_tasks: []
 
