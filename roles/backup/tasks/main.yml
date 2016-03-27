@@ -1,0 +1,21 @@
+- name: Create DB backup directory
+  file: path={{ backup_dir }}/{{ item.name }} state=directory
+  become: yes
+  become_user: dokku
+  with_items: "{{ databases }}"
+
+- name: Copy DB backup script
+  template: src=backup.sh.j2 dest={{ backup_dir }}/backup_{{ item.name }}.sh mode="u=rwx,g=r,o=r"
+  become: yes
+  become_user: dokku
+  with_items: "{{ databases }}"
+
+- name: Set backup cronjob
+  cron:
+    name: "backup {{ item.1.name }}"
+    minute: "{{ item.0 % 60 }}"
+    hour: "{{ item.0 % 24 }}"
+    job: "{{ backup_dir }}/backup_{{ item.1.name }}.sh && {{ backup_alert_command }}"
+  become: yes
+  become_user: dokku
+  with_indexed_items: "{{ databases }}"

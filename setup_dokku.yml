@@ -5,14 +5,23 @@
   vars:
     public_key: '~/.ssh/id_rsa.pub'
     swap_file_path: /swapfile
-    swap_file_size_kb: 1048576
+    swap_sector_count: 2048k
     dokku_plugins:
       - https://github.com/dokku/dokku-postgres.git
+      - https://github.com/dokku/dokku-mariadb.git
+    backup_dir: /home/dokku/backup
+    backup_s3_bucket: 'backup_bucket_name'
+    backup_alert_command: "curl -fsS --retry 3 https://hchk.io/3d82de35-bce7-449d-8d54-274eae59d7f2 > /dev/null"
+
+    databases:
+      - {engine: 'postgres', name: 'appdb'}
+      - {engine: 'mysql', name: 'mydb'}
 
   pre_tasks: []
 
   roles:
     - { role: swap, when: ansible_ssh_user != "vagrant" }
+    - { role: backup, when: ansible_ssh_user != "vagrant" }
     - dokku
 
   post_tasks:

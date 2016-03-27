@@ -12,9 +12,16 @@
   with_items:
     - https://packagecloud.io/gpg.key
 
+- name: Add Dokku Key
+  apt_key: url={{ item }}
+  with_items:
+    - 'https://apt.dockerproject.org/gpg'
+    - 'https://packagecloud.io/gpg.key'
+
 - name: Add Docker and Dokku repos into source list
   apt_repository: repo={{ item }} state=present
   with_items:
+    - 'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
     - 'deb https://packagecloud.io/dokku/dokku/ubuntu/ trusty main'
 
 - name: Install Dokku and necessary soft like Docker with apt
@@ -24,6 +31,7 @@
     - daemontools
     - build-essential
     - libtool
+    - sigil
     - docker
     - dokku
 
@@ -36,3 +44,4 @@
 - name: Install dokku plugins
   shell: dokku plugin:install {{ item }} --name {{ item.split('/')[-1].split('-')[-1] }}
   with_items: dokku_plugins
+  ignore_errors: yes

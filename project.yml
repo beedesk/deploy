@@ -3,10 +3,9 @@
 - name: Setup Project
   hosts: dokku
   vars:
-    project_name: python-getting-started
-    project_url: git@github.com:heroku/python-getting-started.git
-    project_env:
-      - key=value
+    projects:
+      - {name: python-getting-started, url: "https://github.com/heroku/python-getting-started.git", dbname: 'appdb', env: [key=value, foo=bar]}
+      - {name: ruby-rails-sample, url: "https://github.com/heroku/ruby-rails-sample.git", dbname: 'mydb', env: [key=value, foo=bar]}
 
   tasks:
     - name: Get current directory
@@ -14,26 +13,45 @@
       register: current_dir
 
     - name: Checkout project to apps directory
-      local_action: git repo={{ project_url }} dest={{ current_dir.stdout }}/apps/{{ project_name }}
+      local_action: git repo={{ item.url }} dest={{ current_dir.stdout }}/apps/{{ item.name }} accept_hostkey=True
+      with_items: "{{ projects }}"
 
     - name: Create Dokku project
-      shell: dokku apps:create {{ project_name }}
-      sudo: yes
+      shell: dokku apps:create {{ item.name }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
+      ignore_errors: yes
 
-    - name: Create PostgresQL database for project
-      shell: dokku postgres:create {{ project_name }}
-      sudo: yes
+    - name: Create Databases for project
+      shell: dokku {{ item.engine }}:create {{ item.name }}
+      when: item.engine == 'postgres'
+      become: yes
+      become_user: dokku
+      with_items: "{{ databases }}"
+      ignore_errors: yes
 
     - name: Add ENV variables into project
-      shell: dokku config:set {{ project_name }} {{ " ".join(project_env) }}
-      sudo: yes
+      shell: dokku config:set {{ item.name }} {{ " ".join(item.env) }}
+      become: yes
+      become_user: dokku
+      with_items: "{{ projects }}"
 
     - name: Add Dokku as remote repository
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git remote add dokku dokku@dokku.me:{{ project_name }}
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git remote add dokku dokku@dokku.me:{{ item.name }}
+      with_items: "{{ projects }}"
+      ignore_errors: yes
+
+    - name: Link Database with project
+      shell: dokku {{ item[0].engine }}:link {{ item[1].dbname }} {{ item[1].name }}
+      when: item[0].name == item[1].dbname
+      become: yes
+      become_user: dokku
+      with_nested:
+        - "{{ databases }}"
+        - "{{ projects }}"
+      ignore_errors: yes
 
     - name: Push project to Dokku
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ project_name }} git push dokku master
-
-    - name: Link PostgresQL database with project
-      shell: dokku postgres:link {{ project_name }} {{ project_name }}
-      sudo: yes
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git push dokku master
+      with_items: "{{ projects }}"
