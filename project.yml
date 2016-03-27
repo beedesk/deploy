@@ -7,8 +7,8 @@
     #backup_s3_bucket: backup
     alert_command: "curl -fsS --retry 3 https://hchk.io/3d82de35-bce7-449d-8d54-274eae59d7f2 > /dev/null"
     projects:
-      - {name: python-getting-started, url: "git@github.com:heroku/python-getting-started.git", dbname: python, env: [key=value, foo=bar]}
-      - {name: ruby-rails-sample, url: "git@github.com:heroku/ruby-rails-sample.git", dbname: ruby, env: [key=value, foo=bar]}
+      - {name: python-getting-started, url: "https://github.com/heroku/python-getting-started.git", dbname: python, env: [key=value, foo=bar]}
+      - {name: ruby-rails-sample, url: "https://github.com/heroku/ruby-rails-sample.git", dbname: ruby, env: [key=value, foo=bar]}
 
   tasks:
     - name: Get current directory
@@ -16,7 +16,7 @@
       register: current_dir
 
     - name: Checkout project to apps directory
-      local_action: git repo={{ item.url }} dest={{ current_dir.stdout }}/apps/{{ item.name }}
+      local_action: git repo={{ item.url }} dest={{ current_dir.stdout }}/apps/{{ item.name }} accept_hostkey=True
       with_items: "{{ projects }}"
 
     - name: Create Dokku project
@@ -24,6 +24,7 @@
       become: yes
       become_user: dokku
       with_items: "{{ projects }}"
+      ignore_errors: yes
 
     - name: Create PostgresQL database for project
       shell: dokku postgres:create {{ item.dbname }}
