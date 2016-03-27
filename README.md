@@ -67,6 +67,8 @@ Then execute Ansible
 
    ``` bash
       ansible-playbook -i test_hosts project.yml
+
+      # warning: check ~/.ssh/known_hosts and remove dokku.me entry, if you got SSH UNREACHABLE problem
    ```
 
 Deploy to Production
