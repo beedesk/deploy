@@ -6,6 +6,9 @@
     projects:
       - {name: python-getting-started, url: "https://github.com/heroku/python-getting-started.git", dbname: 'appdb', env: [key=value, foo=bar]}
       - {name: ruby-rails-sample, url: "https://github.com/heroku/ruby-rails-sample.git", dbname: 'mydb', env: [key=value, foo=bar]}
+    databases:
+      - {engine: 'postgres', name: 'appdb'}
+      - {engine: 'mariadb', name: 'mydb'}
 
   tasks:
     - name: Get current directory
@@ -25,7 +28,6 @@
 
     - name: Create Databases for project
       shell: dokku {{ item.engine }}:create {{ item.name }}
-      when: item.engine == 'postgres'
       become: yes
       become_user: dokku
       with_items: "{{ databases }}"
@@ -38,7 +40,7 @@
       with_items: "{{ projects }}"
 
     - name: Add Dokku as remote repository
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git remote add dokku dokku@dokku.me:{{ item.name }}
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git remote add {{ git_remote_name }} dokku@{{ inventory_hostname }}:{{ item.name }}
       with_items: "{{ projects }}"
       ignore_errors: yes
 
@@ -53,5 +55,5 @@
       ignore_errors: yes
 
     - name: Push project to Dokku
-      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git push dokku master
+      local_action: command chdir={{ current_dir.stdout }}/apps/{{ item.name }} git push {{ git_remote_name }} master
       with_items: "{{ projects }}"

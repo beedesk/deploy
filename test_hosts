@@ -1,2 +1,5 @@
 [dokku]
 dokku.me ansible_ssh_user=vagrant
+
+[dokku:vars]
+git_remote_name=dokku

@@ -85,6 +85,9 @@ Deploy to Production
    ```
       [dokku]
       aws.ip.address	ansible_user=ubuntu	ansible_ssh_private_key_file=~/.ssh/test-ansible.pem.txt
+
+      [dokku:vars]
+      git_remote_name=production
    ```
 
 2. Setup production hosts
