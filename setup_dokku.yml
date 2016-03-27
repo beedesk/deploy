@@ -21,8 +21,8 @@
 
   roles:
     - { role: swap, when: ansible_ssh_user != "vagrant" }
-    - { role: backup, when: ansible_ssh_user != "vagrant" }
     - dokku
+    - { role: backup, when: ansible_ssh_user != "vagrant" }
 
   post_tasks:
 
