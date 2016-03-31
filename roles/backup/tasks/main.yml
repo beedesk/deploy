@@ -1,3 +1,4 @@
+---
 - name: Create DB backup directory
   file: path={{ backup_dir }}/{{ item.name }} state=directory
   become: yes

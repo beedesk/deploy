@@ -7,12 +7,7 @@
     - python
     - ntp
 
-- name: Add packagecloud.io key into apt
-  apt_key: url={{ item }} state=present
-  with_items:
-    - https://packagecloud.io/gpg.key
-
-- name: Add Dokku Key
+- name: Add GPG Keys
   apt_key: url={{ item }}
   with_items:
     - 'https://apt.dockerproject.org/gpg'
